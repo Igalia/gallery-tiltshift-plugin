@@ -1,0 +1,21 @@
+Source: gallery-plugin-tiltshift
+Section: graphics
+Priority: extra
+Maintainer: Simon Pena <spena@igalia.com>
+Build-Depends: debhelper (>= 7.0.50),
+               libgallerycore-dev (>= 1.110519.2),
+               libquillimagefilter-dev (>= 1.110523.0)
+Standards-Version: 3.9.1
+
+Package: gallery-plugin-tiltshift
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Gallery plugin that applies Tilt Shift effect
+
+Package: gallery-plugin-tiltshift-dbg
+Section: debug
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends},
+         gallery-plugin-tiltshift (= ${binary:Version})
+Description: Gallery plugin that applies Tilt Shift effect
+ This package contains the debug symbols.
