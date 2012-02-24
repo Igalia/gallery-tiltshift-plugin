@@ -20,6 +20,7 @@
   area).
 */
 
+#include "gaussian.h"
 #include <QuillImageFilterImplementation>
 
 class TiltShift : public QuillImageFilterImplementation
@@ -47,6 +48,10 @@ public:
     virtual const QString name() const;
 
 private:
+    float gaussF(float x, float x0) const;
+    float** maskImage(const QuillImage &image) const;
+
+private:
     //! Radius of application around the focused point (in the secondary direction)
     int m_radius;
 
@@ -55,6 +60,8 @@ private:
 
     //! Coordinates of the point which will act as the center of the focused area
     QPoint m_focusPoint;
+
+    Gaussian* m_gaussianFilter;
 };
 
 #endif // TILTSHIFT_H

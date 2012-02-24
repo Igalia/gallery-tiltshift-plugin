@@ -5,10 +5,12 @@ CONFIG         += plugin \
                   quillimagefilter
 
 HEADERS += quilltiltshiftplugin.h \
-           tiltshift.h
+           tiltshift.h \
+           gaussian.h
 
 SOURCES += quilltiltshiftplugin.cpp \
-           tiltshift.cpp
+           tiltshift.cpp \
+           gaussian.cpp
 
 target.path = $$[QT_INSTALL_PLUGINS]/quillimagefilters
 INSTALLS += target

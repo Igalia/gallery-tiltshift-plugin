@@ -1,29 +1,60 @@
+#include <cmath>
 #include "tiltshift.h"
+#include "quillimagefilter.h"
+#include <QPoint>
+#include <QColor>
 
 #define FILTER_NAME_TILTSHIFT "com.igalia.spena.tiltshift"
+
+static const int GAUSSIAN_RADIUS = 52;
 
 TiltShift::TiltShift() :
     m_radius(0),
     m_horizontalEffect(true),
-    m_focusPoint()
+    m_focusPoint(),
+    m_gaussianFilter(new Gaussian)
 {
+    m_gaussianFilter->setOption(QuillImageFilter::Radius, QVariant(5));
 }
 
 TiltShift::~TiltShift()
 {
+    delete m_gaussianFilter;
 }
 
 QuillImage TiltShift::apply(const QuillImage& image) const
 {
-    QuillImage result(image);
+    if (image.isNull()) {
+        return image;
+    }
+    QuillImage blurredImage = m_gaussianFilter->apply(image);
 
-    QRgb* endp(reinterpret_cast<QRgb*>(result.bits() + result.numBytes()));
-    for (QRgb *p = reinterpret_cast<QRgb*>(result.bits()); p < endp; p++) {
-        int value = (qRed(*p) + qGreen(*p) + qBlue(*p)) / 3;
-        *p = qRgba(value, value, value, qAlpha(*p));
+    float** mask = maskImage(image);
+    QImage resultImage(image.size(), QImage::Format_RGB32);
+
+    for (int x = 0; x < image.size().width(); x ++) {
+        for (int y = 0; y < image.size().height(); y ++) {
+            QRgb originalPixel = image.pixel(x, y);
+            QRgb blurredPixel = blurredImage.pixel(x, y);
+
+            int red = qRed(originalPixel) * mask[x][y] + qRed(blurredPixel) * (1 - mask[x][y]);
+            int blue = qBlue(originalPixel) * mask[x][y] + qBlue(blurredPixel) * (1 - mask[x][y]);
+            int green = qGreen(originalPixel) * mask[x][y] + qGreen(blurredPixel) * (1 - mask[x][y]);
+
+            QColor result(red, green, blue);
+            result.setHsvF(result.hueF(), qMin(1.8 * result.saturationF(), 1.0), result.valueF());
+
+            resultImage.setPixel(QPoint(x, y), result.rgb());
+        }
     }
 
-    return result;
+    for (int i = 0; i < image.size().width(); i ++) {
+        delete[] mask[i];
+    }
+
+    delete[] mask;
+
+    return QuillImage(image, resultImage);
 }
 
 bool TiltShift::setOption(const QString& filterOption, const QVariant& value)
@@ -66,4 +97,58 @@ const QStringList TiltShift::supportedOptions() const
 const QString TiltShift::name() const
 {
     return FILTER_NAME_TILTSHIFT;
+}
+
+float TiltShift::gaussF(float x, float x0) const
+{
+    return exp(-(x - x0) * (x - x0) / (x0 * x0 / GAUSSIAN_RADIUS));
+}
+
+float** TiltShift::maskImage(const QuillImage& image) const
+{
+    float** maskImage = new float*[image.size().width()];
+
+    for (int i = 0; i < image.size().width(); i ++) {
+        maskImage[i] = new float[image.size().height()];
+    }
+
+    QPointF updatedFocusPoint(m_focusPoint);
+    int scaledRadius = m_radius * 0.01 * (m_horizontalEffect ?
+                                              image.fullImageSize().height() :
+                                              image.fullImageSize().width());
+
+    if (!image.isFragment()) {
+        // Scale point and radius
+        updatedFocusPoint.setX(m_focusPoint.x() *
+                               image.size().width() /
+                               image.fullImageSize().width());
+        updatedFocusPoint.setY(m_focusPoint.y() *
+                               image.size().height() /
+                               image.fullImageSize().height());
+        scaledRadius = m_radius * 0.01 * (m_horizontalEffect ?
+                                              image.size().height() :
+                                              image.size().width());
+    }
+
+
+    for (int x = 0; x < image.size().width(); x ++) {
+        for (int y = 0; y < image.size().height(); y ++) {
+            maskImage[x][y] = 1.0;
+            if (m_horizontalEffect) {
+                if ((y + image.area().top()) < updatedFocusPoint.y() - scaledRadius / 2) {
+                    maskImage[x][y] = gaussF(y, updatedFocusPoint.y() - scaledRadius / 2);
+                } else if ((y + image.area().top()) >= updatedFocusPoint.y() + scaledRadius / 2) {
+                    maskImage[x][y] = gaussF(y, updatedFocusPoint.y() + scaledRadius / 2);
+                }
+            } else {
+                if ((x + image.area().left()) < updatedFocusPoint.x() - scaledRadius / 2) {
+                    maskImage[x][y] = gaussF(x, updatedFocusPoint.x() - scaledRadius / 2);
+                } else if ((x + image.area().left()) >= updatedFocusPoint.x() + scaledRadius / 2) {
+                    maskImage[x][y] = gaussF(x, updatedFocusPoint.x() + scaledRadius / 2);
+                }
+            }
+        }
+    }
+
+    return maskImage;
 }
