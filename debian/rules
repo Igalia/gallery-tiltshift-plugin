@@ -4,18 +4,18 @@
 
 # Teach qmake about CFLAGS, poor qmake doesn't know about it...
 #
-QMAKE_OPTIONS += QMAKE_CXXFLAGS_RELEASE='$(CFLAGS)' \
-								 QMAKE_CXXFLAGS_DEBUG='$(CFLAGS)' \
-								 QMAKE_CFLAGS_RELEASE='$(CFLAGS)' \
-								 QMAKE_CFLAGS_DEBUG='$(CFLAGS)' \
-								 QMAKE_STRIP=: \
+QMAKE_OPTIONS += QMAKE_STRIP=: \
 								 PREFIX=/usr
+
+ifneq (,$(filter debug,$(DEB_BUILD_OPTIONS)))
+	DEB_QMAKE_ARGS += "debug=yes"
+endif
 
 %:
 	dh --buildsystem=qmake $@
 
 override_dh_auto_configure:
-	qmake $(QMAKE_OPTIONS)
+	qmake $(QMAKE_OPTIONS) $(DEB_QMAKE_ARGS)
 
 override_dh_strip:
 	dh_strip --dbg-package=gallery-plugin-tiltshift-dbg
