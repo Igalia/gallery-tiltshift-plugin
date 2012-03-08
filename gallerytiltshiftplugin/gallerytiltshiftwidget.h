@@ -23,11 +23,11 @@
 #ifndef GALLERYTILTSHIFTWIDGET_H
 #define GALLERYTILTSHIFTWIDGET_H
 
-#include <MLabel>
+#include <MWidgetController>
 
 class GalleryTiltShiftWidgetPrivate;
 
-class GalleryTiltShiftWidget : public MLabel
+class GalleryTiltShiftWidget : public MWidgetController
 {
     Q_OBJECT
 public:

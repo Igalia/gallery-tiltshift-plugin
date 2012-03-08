@@ -1,2 +1,3 @@
 gallerytiltshiftplugin/*.so usr/lib/gallery
+gallerytiltshiftplugin/conf/*.css usr/share/themes/base/meegotouch/libgallerytiltshiftplugin/style
 quilltiltshiftplugin/*.so   usr/lib/qt4/plugins/quillimagefilters

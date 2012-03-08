@@ -26,5 +26,13 @@ HEADERS += gallerytiltshiftplugin.h \
 SOURCES += gallerytiltshiftplugin.cpp \
            gallerytiltshiftwidget.cpp
 
+OTHER_FILES += \
+           conf/libgallerytiltshiftplugin.css
+
 target.path = /usr/lib/gallery
-INSTALLS += target
+
+include($$[QT_INSTALL_DATA]/mkspecs/features/meegotouch_defines.prf)
+meegotouch.files = conf/libgallerytiltshiftplugin.css
+meegotouch.path = $${M_THEME_DIR}/base/meegotouch/libgallerytiltshiftplugin/style
+
+INSTALLS += target meegotouch

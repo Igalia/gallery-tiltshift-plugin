@@ -27,6 +27,7 @@
 #include <galleryedituiprovider.h>
 #include <MApplication>
 #include <MBanner>
+#include <MLibrary>
 #include <MSceneWindow>
 #include <QuillImageFilter>
 #include <QGraphicsSceneMouseEvent>
@@ -35,6 +36,8 @@ static const int PORTRAIT_HEIGHT        = 216;
 static const int LANDSCAPE_HEIGHT       = 156;
 static const int TAP_DISTANCE           = 20;
 static const int INFO_BANNER_TIMEOUT    = 2000;
+
+M_LIBRARY
 
 GalleryTiltShiftPluginPrivate::GalleryTiltShiftPluginPrivate() :
     m_focusPosition()

@@ -30,7 +30,11 @@
 #include <MLayout>
 #include <MLinearLayoutPolicy>
 #include <MSlider>
+#include <MWidgetController>
+#include <MWidgetCreator>
 #include <QGraphicsLinearLayout>
+
+M_REGISTER_WIDGET_NO_CREATE(GalleryTiltShiftWidget)
 
 GalleryTiltShiftWidgetPrivate::GalleryTiltShiftWidgetPrivate() :
     m_applyHorizontallyButton(0),
@@ -83,12 +87,13 @@ MButton* GalleryTiltShiftWidgetPrivate::addButton(const QString& label,
 }
 
 GalleryTiltShiftWidget::GalleryTiltShiftWidget(QGraphicsItem* parent) :
-    MLabel(parent),
+    MWidgetController(parent),
     d_ptr(new GalleryTiltShiftWidgetPrivate)
 {
     // TODO: The layout widgets are still missing the proper CSS styles,
     // and maybe some size policies to take the space they need.
 
+    setObjectName("GalleryTiltShiftWidget");
     setStyleName("ImageEditorBcControl");
     setContentsMargins(0, 0, 0, 0);
 
