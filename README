@@ -1,24 +1,13 @@
-DONE:
- * The UI should be quite similar to the one provided:
-      - two buttons in a button group to pick the orientation of the
-        focused area (horizontal or vertical)
-      - A slider, to pick the size of the focused area (which should
-        take all the available space in the other orientation, and
-        just the selected one in the other)
-      - Receive a mouse event on the screen to pick the center of the
-        focused area
- * The debian packaging is already working: plugins (Gallery and Quill) get
-   installed to the right place, and later show in the Edit Options menu.
- * Gallery and Quill are connected, and the parameters are received.
+USAGE:
+ * Select the orientation of the focus (horizontal / vertical). In that
+   orientation, the focused area will take all available space
+ * Select the radius of the focus: that will rule the size of the focused
+   area in the other orientation
+ * Tap on the screen to center the focus around the given point
 
-TODO:
- * Adapt the already existing Gaussian Blur plugin so it can be used for
-   this effect.
- * Provide a way either to chain calls to different plugins (so we can call
-   the Gaussian Blur and later the color enhancement) or simply copy, paste
-   and adapt the code from the various plugins.
- * Provide some way to apply the blurring outside a given area / merge the
-   original image with the blurred one in order to keep an area focused.
- * The Gaussian Blur algorithm is known to be slow: maybe it will need some
-   performance enhancements.
- * CSS styling and other tweaks for the UI
+TODO
+ * The Gaussian Blur algorithm is known to be slow: it will need some
+   performance enhancements, besides the use of scanLines to access pixels
+ * The Gaussian Blur filter makes artifacts on the borders of the tiles
+ * If the Gaussian Blur filter cannot be improved, maybe it should be
+   restricted to images smaller than a given size
