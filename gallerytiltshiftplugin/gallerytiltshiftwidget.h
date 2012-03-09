@@ -24,6 +24,10 @@ public:
     //! \return Application orientation
     Qt::Orientation applicationOrientation() const;
 
+    //! Get function for slider handle visibility
+    //! \return True if visible, otherwise false
+    bool isSliderHandleLabelVisible() const;
+
 public Q_SLOTS:
     //! Called when the apply vertically button is clicked
     void onApplyVerticallyButtonClicked();

@@ -31,6 +31,9 @@ public:
     bool containsUi() const;
 
     //! \reimp
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
+
+    //! \reimp
     bool receiveMouseEvent(QGraphicsSceneMouseEvent* event);
 
     //! \reimp

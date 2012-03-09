@@ -135,6 +135,12 @@ int GalleryTiltShiftWidget::sliderValue() const
     return d->m_slider->value();
 }
 
+bool GalleryTiltShiftWidget::isSliderHandleLabelVisible() const
+{
+    Q_D(const GalleryTiltShiftWidget);
+    return d->m_slider->isHandleLabelVisible();
+}
+
 Qt::Orientation GalleryTiltShiftWidget::applicationOrientation() const
 {
     Q_D(const GalleryTiltShiftWidget);
@@ -157,21 +163,26 @@ void GalleryTiltShiftWidget::onApplyVerticallyButtonClicked()
 
 void GalleryTiltShiftWidget::showSliderHandle()
 {
-
+    Q_D(GalleryTiltShiftWidget);
+    d->m_slider->setHandleLabelVisible(true);
+    emit sliderHandleVisibilityChanged();
 }
 
 void GalleryTiltShiftWidget::hideSliderHandle()
 {
-
+    Q_D(GalleryTiltShiftWidget);
+    d->m_slider->setHandleLabelVisible(false);
+    emit sliderHandleVisibilityChanged();
+    emit sliderValueChanged();
 }
 
 void GalleryTiltShiftWidget::handleValueChanged(int newValue)
 {
     Q_UNUSED(newValue)
-    emit sliderValueChanged();
 }
 
 void GalleryTiltShiftWidget::setSliderHandleText(const QString& text)
 {
-    Q_UNUSED(text)
+    Q_D(GalleryTiltShiftWidget);
+    d->m_slider->setHandleLabel(text);
 }

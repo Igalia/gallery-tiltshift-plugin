@@ -57,6 +57,23 @@ bool GalleryTiltShiftPlugin::containsUi() const
     return true;
 }
 
+void GalleryTiltShiftPlugin::paint(QPainter* painter,
+                                   const QStyleOptionGraphicsItem* option,
+                                   QWidget* widget)
+{
+    Q_UNUSED(painter)
+    Q_UNUSED(option)
+    Q_UNUSED(widget)
+
+    if (editUiProvider() && toolBarWidget()) {
+        GalleryTiltShiftWidget* widget = static_cast<GalleryTiltShiftWidget*>(toolBarWidget());
+        if (widget->isSliderHandleLabelVisible()) {
+            const QString text = QString("%L1").arg(widget->sliderValue());
+            widget->setSliderHandleText(text);
+        }
+    }
+}
+
 QGraphicsWidget* GalleryTiltShiftPlugin::createToolBarWidget(QGraphicsItem* parent)
 {
     GalleryTiltShiftWidget* pluginWidget = new GalleryTiltShiftWidget(parent);
