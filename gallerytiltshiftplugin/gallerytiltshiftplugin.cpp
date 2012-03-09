@@ -151,8 +151,7 @@ void GalleryTiltShiftPlugin::performEditOperation()
                               QVariant(widget->sliderValue()));
             optionHash.insert(QuillImageFilter::Horizontal,
                               QVariant(widget->applicationOrientation() == Qt::Horizontal));
-            // Use QuillImageFilter::Name_Gaussian to try the Gaussian Blur filter
-            editUiProvider()->runEditFilter("com.igalia.spena.tiltshift", optionHash, true);
+            editUiProvider()->runEditFilter("com.igalia.tiltshift", optionHash, true);
             emit editOperationPerformed();
         }
     }

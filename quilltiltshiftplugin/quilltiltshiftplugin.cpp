@@ -23,7 +23,7 @@
 #include "quilltiltshiftplugin.h"
 #include "tiltshift.h"
 
-#define FILTER_NAME_TILTSHIFT "com.igalia.spena.tiltshift"
+#define FILTER_NAME_TILTSHIFT "com.igalia.tiltshift"
 
 QuillTiltShiftPlugin::QuillTiltShiftPlugin():
     QObject()

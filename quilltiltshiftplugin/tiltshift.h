@@ -34,7 +34,7 @@
   applied outside the focused area, and then some color enhancement process
   is applied.
 
-  Domain based name: com.igalia.spena.tiltshift
+  Domain based name: com.igalia.tiltshift
 
   Options supported: Radius (amount of space to keep focused in the secondary
   orientation), Horizontal (boolean specifying whether to apply the filter

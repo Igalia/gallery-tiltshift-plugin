@@ -26,7 +26,7 @@
 #include <QPoint>
 #include <QColor>
 
-#define FILTER_NAME_TILTSHIFT "com.igalia.spena.tiltshift"
+#define FILTER_NAME_TILTSHIFT "com.igalia.tiltshift"
 
 static const int GAUSSIAN_RADIUS = 52;
 
