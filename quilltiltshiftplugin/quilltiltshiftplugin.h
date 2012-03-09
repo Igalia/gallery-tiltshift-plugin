@@ -23,7 +23,6 @@
 #ifndef QUILLTILTSHIFTPLUGIN_H
 #define QUILLTILTSHIFTPLUGIN_H
 
-#include <QuillImageFilter>
 #include <QuillImageFilterInterface>
 #include <QuillImageFilterImplementation>
 

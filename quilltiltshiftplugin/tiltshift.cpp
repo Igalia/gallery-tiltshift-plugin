@@ -20,15 +20,19 @@
  * License along with this library. If not, see http://www.gnu.org/licenses/ *
  */
 
-#include <cmath>
 #include "tiltshift.h"
-#include "quillimagefilter.h"
+#include <cmath>
+#include <QuillImageFilter>
 #include <QPoint>
 #include <QColor>
 
 #define FILTER_NAME_TILTSHIFT "com.igalia.tiltshift"
 
-static const int GAUSSIAN_RADIUS = 52;
+static const int GRADIENT_GAUSSIAN_RADIUS = 52;
+static const int GAUSSIAN_BLUR_RADIUS_THUMBNAIL = 2;
+static const int GAUSSIAN_BLUR_RADIUS_PREVIEW = 5;
+static const int GAUSSIAN_BLUR_RADIUS_TILE = 21;
+static const double SATURATION_FACTOR = 1.5;
 
 TiltShift::TiltShift() :
     m_radius(0),
@@ -36,7 +40,6 @@ TiltShift::TiltShift() :
     m_focusPoint(),
     m_gaussianFilter(new Gaussian)
 {
-    m_gaussianFilter->setOption(QuillImageFilter::Radius, QVariant(5));
 }
 
 TiltShift::~TiltShift()
@@ -48,6 +51,13 @@ QuillImage TiltShift::apply(const QuillImage& image) const
 {
     if (image.isNull()) {
         return image;
+    }
+    if (image.isFragment()) {
+        m_gaussianFilter->setOption(QuillImageFilter::Radius, QVariant(GAUSSIAN_BLUR_RADIUS_TILE));
+    } else if (image.size() == QSize(170, 170)) {
+        m_gaussianFilter->setOption(QuillImageFilter::Radius, QVariant(GAUSSIAN_BLUR_RADIUS_THUMBNAIL));
+    } else {
+        m_gaussianFilter->setOption(QuillImageFilter::Radius, QVariant(GAUSSIAN_BLUR_RADIUS_PREVIEW));
     }
     QuillImage blurredImage = m_gaussianFilter->apply(image);
 
@@ -64,7 +74,7 @@ QuillImage TiltShift::apply(const QuillImage& image) const
             int green = qGreen(originalPixel) * mask[x][y] + qGreen(blurredPixel) * (1 - mask[x][y]);
 
             QColor result(red, green, blue);
-            result.setHsvF(result.hueF(), qMin(1.8 * result.saturationF(), 1.0), result.valueF());
+            result.setHsvF(result.hueF(), qMin(SATURATION_FACTOR * result.saturationF(), 1.0), result.valueF());
 
             resultImage.setPixel(QPoint(x, y), result.rgb());
         }
@@ -123,7 +133,7 @@ const QString TiltShift::name() const
 
 float TiltShift::gaussF(float x, float x0) const
 {
-    return exp(-(x - x0) * (x - x0) / (x0 * x0 / GAUSSIAN_RADIUS));
+    return exp(-(x - x0) * (x - x0) / (x0 * x0 / GRADIENT_GAUSSIAN_RADIUS));
 }
 
 float** TiltShift::maskImage(const QuillImage& image) const
@@ -158,15 +168,19 @@ float** TiltShift::maskImage(const QuillImage& image) const
             maskImage[x][y] = 1.0;
             if (m_horizontalEffect) {
                 if ((y + image.area().top()) < updatedFocusPoint.y() - scaledRadius / 2) {
-                    maskImage[x][y] = gaussF(y, updatedFocusPoint.y() - scaledRadius / 2);
+                    maskImage[x][y] = gaussF(y + image.area().top(),
+                                             updatedFocusPoint.y() - scaledRadius / 2);
                 } else if ((y + image.area().top()) >= updatedFocusPoint.y() + scaledRadius / 2) {
-                    maskImage[x][y] = gaussF(y, updatedFocusPoint.y() + scaledRadius / 2);
+                    maskImage[x][y] = gaussF(y + image.area().top(),
+                                             updatedFocusPoint.y() + scaledRadius / 2);
                 }
             } else {
                 if ((x + image.area().left()) < updatedFocusPoint.x() - scaledRadius / 2) {
-                    maskImage[x][y] = gaussF(x, updatedFocusPoint.x() - scaledRadius / 2);
+                    maskImage[x][y] = gaussF(x + image.area().left(),
+                                             updatedFocusPoint.x() - scaledRadius / 2);
                 } else if ((x + image.area().left()) >= updatedFocusPoint.x() + scaledRadius / 2) {
-                    maskImage[x][y] = gaussF(x, updatedFocusPoint.x() + scaledRadius / 2);
+                    maskImage[x][y] = gaussF(x + image.area().left(),
+                                             updatedFocusPoint.x() + scaledRadius / 2);
                 }
             }
         }
