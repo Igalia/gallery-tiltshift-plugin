@@ -126,8 +126,11 @@ QuillImage Gaussian::apply(const QuillImage &image) const
 
     // First pass in X direction
 
-    for (int y=0; y<image.height(); y++)
-        for (int x=0; x<image.width(); x++) {
+    for (int y = 0; y < image.height(); y++) {
+        const QRgb* imageRow = (const QRgb*) image.constScanLine(y);
+        QRgb* passImageRow = (QRgb*) passImage.scanLine(y);
+
+        for (int x = 0; x < image.width(); x++) {
             int red = 0, green = 0, blue = 0;
 
             for (int i=-kernelRadius; i<=kernelRadius; i++) {
@@ -137,7 +140,7 @@ QuillImage Gaussian::apply(const QuillImage &image) const
                 else if (sourceX >= image.width())
                     sourceX = image.width() - 1;
 
-                QRgb pixel = image.pixel(sourceX, y);
+                QRgb pixel = imageRow[sourceX];
 
                 int g = kernelValue(i);
 
@@ -154,12 +157,13 @@ QuillImage Gaussian::apply(const QuillImage &image) const
             cap(&green);
             cap(&blue);
 
-            passImage.setPixel(QPoint(x, y), qRgb(red, green, blue));
+            passImageRow[x] = qRgb(red, green, blue);
         }
+    }
 
     // Second pass in Y direction
 
-    for (int y=0; y<passImage.height(); y++)
+    for (int y=0; y<passImage.height(); y++) {
         for (int x=0; x<passImage.width(); x++) {
             int red = 0, green = 0, blue = 0;
 
@@ -189,6 +193,7 @@ QuillImage Gaussian::apply(const QuillImage &image) const
 
             targetImage.setPixel(QPoint(x, y), qRgb(red, green, blue));
         }
+    }
 
     return QuillImage(image, targetImage);
 }
