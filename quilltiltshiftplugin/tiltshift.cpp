@@ -64,19 +64,19 @@ QuillImage TiltShift::apply(const QuillImage& image) const
     float** mask = maskImage(image);
     QImage resultImage(image.size(), QImage::Format_RGB32);
 
-    for (int x = 0; x < image.size().width(); x ++) {
-        for (int y = 0; y < image.size().height(); y ++) {
-            QRgb originalPixel = image.pixel(x, y);
-            QRgb blurredPixel = blurredImage.pixel(x, y);
+    for (int y=0; y<image.height(); y++) {
+        const QRgb* originalPixelRow = (const QRgb*)image.constScanLine(y);
+        const QRgb* blurredPixelRow = (const QRgb*)blurredImage.constScanLine(y);
+        QRgb* resultPixelRow = (QRgb*)resultImage.scanLine(y);
 
-            int red = qRed(originalPixel) * mask[x][y] + qRed(blurredPixel) * (1 - mask[x][y]);
-            int blue = qBlue(originalPixel) * mask[x][y] + qBlue(blurredPixel) * (1 - mask[x][y]);
-            int green = qGreen(originalPixel) * mask[x][y] + qGreen(blurredPixel) * (1 - mask[x][y]);
-
+        for (int x=0; x<image.width(); x++) {
+            int red = qRed(originalPixelRow[x]) * mask[x][y] + qRed(blurredPixelRow[x]) * (1 - mask[x][y]);
+            int blue = qBlue(originalPixelRow[x]) * mask[x][y] + qBlue(blurredPixelRow[x]) * (1 - mask[x][y]);
+            int green = qGreen(originalPixelRow[x]) * mask[x][y] + qGreen(blurredPixelRow[x]) * (1 - mask[x][y]);
             QColor result(red, green, blue);
             result.setHsvF(result.hueF(), qMin(SATURATION_FACTOR * result.saturationF(), 1.0), result.valueF());
 
-            resultImage.setPixel(QPoint(x, y), result.rgb());
+            resultPixelRow[x] = result.rgb();
         }
     }
 
