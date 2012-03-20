@@ -73,8 +73,7 @@ int GalleryTiltShiftPlugin::menuIndex() const
 
 QString GalleryTiltShiftPlugin::iconID() const
 {
-    // TODO: use the icon id for an actual icon
-    return QString("icon-m-missing-icon");
+    return QString("icon-m-image-edit-tilt-shift");
 }
 
 bool GalleryTiltShiftPlugin::containsUi() const
