@@ -134,6 +134,8 @@ GalleryTiltShiftWidget::GalleryTiltShiftWidget(QGraphicsItem* parent) :
     connect(d->m_applyVerticallyButton, SIGNAL(clicked()),
             SLOT(onApplyVerticallyButtonClicked()));
 
+    connect(d->m_aboutLabel, SIGNAL(linkActivated(QString)),
+            this, SIGNAL(aboutLinkActivated(QString)));
 
     QGraphicsLinearLayout* mainLayout = new QGraphicsLinearLayout(Qt::Vertical);
     mainLayout->setContentsMargins(0, 0, 0, 0);

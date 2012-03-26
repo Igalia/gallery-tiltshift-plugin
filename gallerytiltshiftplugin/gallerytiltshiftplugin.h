@@ -72,6 +72,10 @@ public Q_SLOTS:
     //! \reimp
     void activate();
 
+    //! Invoked when a link in the about notice has been activated
+    //! \param link The activated link
+    void onAboutLinkActivated(const QString& link);
+
 private:
     Q_DISABLE_COPY(GalleryTiltShiftPlugin)
     Q_DECLARE_PRIVATE(GalleryTiltShiftPlugin)

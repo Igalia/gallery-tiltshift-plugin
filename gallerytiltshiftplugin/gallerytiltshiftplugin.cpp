@@ -30,6 +30,8 @@
 #include <MLibrary>
 #include <MSceneWindow>
 #include <QuillImageFilter>
+#include <QDesktopServices>
+#include <QUrl>
 #include <QGraphicsSceneMouseEvent>
 
 static const int PORTRAIT_HEIGHT        = 224;
@@ -105,6 +107,8 @@ QGraphicsWidget* GalleryTiltShiftPlugin::createToolBarWidget(QGraphicsItem* pare
             SLOT(performEditOperation()));
     connect(pluginWidget, SIGNAL(sliderValueChanged()),
             SLOT(performEditOperation()));
+    connect(pluginWidget, SIGNAL(aboutLinkActivated(QString)),
+            SLOT(onAboutLinkActivated(QString)));
     return pluginWidget;
 }
 
@@ -166,6 +170,13 @@ void GalleryTiltShiftPlugin::activate()
             infoBanner, SLOT(disappear()));
     // This banner should last no more than 2 seconds
     infoBanner->model()->setDisappearTimeout(2000);
+}
+
+void GalleryTiltShiftPlugin::onAboutLinkActivated(const QString &link)
+{
+    if (link.toLower().startsWith("http")) {
+        QDesktopServices::openUrl(QUrl(link));
+    }
 }
 
 Q_EXPORT_PLUGIN2(gallerytiltshiftplugin, GalleryTiltShiftPlugin)
