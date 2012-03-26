@@ -81,6 +81,9 @@ Q_SIGNALS:
     //! Emitted when the slider handle visibility changes
     void sliderHandleVisibilityChanged();
 
+    //! Emitted when a link in the about notice was activated
+    void aboutLinkActivated(const QString& link);
+
 private:
     Q_DISABLE_COPY(GalleryTiltShiftWidget)
     Q_DECLARE_PRIVATE(GalleryTiltShiftWidget)

@@ -25,8 +25,10 @@
 
 class MButton;
 class MButtonGroup;
+class MLabel;
 class MLayout;
 class MLinearLayoutPolicy;
+class MSeparator;
 class MSlider;
 
 class GalleryTiltShiftWidgetPrivate
@@ -68,6 +70,12 @@ public:
 
     //! Portrait policy for the focus area layout
     MLinearLayoutPolicy* m_portraitPolicy;
+
+    //! Separator dividing the widget from the about claim
+    MSeparator* m_aboutSeparator;
+
+    //! Label containing the about disclaimer
+    MLabel* m_aboutLabel;
 };
 
 #endif // GALLERYTILTSHIFTWIDGET_P_H

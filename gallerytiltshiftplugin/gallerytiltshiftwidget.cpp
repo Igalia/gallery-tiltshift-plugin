@@ -29,6 +29,7 @@
 #include <MLabel>
 #include <MLayout>
 #include <MLinearLayoutPolicy>
+#include <MSeparator>
 #include <MSlider>
 #include <MWidgetController>
 #include <MWidgetCreator>
@@ -43,7 +44,9 @@ GalleryTiltShiftWidgetPrivate::GalleryTiltShiftWidgetPrivate() :
     m_slider(0),
     m_orientationLayout(new MLayout),
     m_landscapePolicy(new MLinearLayoutPolicy(m_orientationLayout, Qt::Horizontal)),
-    m_portraitPolicy(new MLinearLayoutPolicy(m_orientationLayout, Qt::Vertical))
+    m_portraitPolicy(new MLinearLayoutPolicy(m_orientationLayout, Qt::Vertical)),
+    m_aboutSeparator(new MSeparator),
+    m_aboutLabel(new MLabel)
 {
     m_orientationLayout->setContentsMargins(0, 0, 0, 0);
     m_orientationLayout->setAnimation(0);
@@ -58,6 +61,11 @@ GalleryTiltShiftWidgetPrivate::GalleryTiltShiftWidgetPrivate() :
 
     m_orientationLayout->setLandscapePolicy(m_landscapePolicy);
     m_orientationLayout->setPortraitPolicy(m_portraitPolicy);
+
+    m_aboutSeparator->setStyleName("CommonHeaderDividerInverted");
+
+    m_aboutLabel->setStyleName("TiltShiftAboutNotice");
+    m_aboutLabel->setText("Tilt Shift plugin has been proudly brought to you by <a href=\"http://www.igalia.com\">Igalia</a>");
 }
 
 GalleryTiltShiftWidgetPrivate::~GalleryTiltShiftWidgetPrivate()
@@ -68,6 +76,8 @@ GalleryTiltShiftWidgetPrivate::~GalleryTiltShiftWidgetPrivate()
     delete m_slider;
     delete m_portraitPolicy;
     delete m_landscapePolicy;
+    delete m_aboutSeparator;
+    delete m_aboutLabel;
 }
 
 MButton* GalleryTiltShiftWidgetPrivate::addButton(const QString& label,
@@ -90,9 +100,6 @@ GalleryTiltShiftWidget::GalleryTiltShiftWidget(QGraphicsItem* parent) :
     MWidgetController(parent),
     d_ptr(new GalleryTiltShiftWidgetPrivate)
 {
-    // TODO: The layout widgets are still missing the proper CSS styles,
-    // and maybe some size policies to take the space they need.
-
     setObjectName("GalleryTiltShiftWidget");
     setStyleName("ImageEditorBcControl");
     setContentsMargins(0, 0, 0, 0);
@@ -135,6 +142,8 @@ GalleryTiltShiftWidget::GalleryTiltShiftWidget(QGraphicsItem* parent) :
     mainLayout->setAlignment(d->m_slider, Qt::AlignCenter);
     mainLayout->addItem(d->m_orientationLayout);
     mainLayout->setAlignment(d->m_orientationLayout, Qt::AlignCenter);
+    mainLayout->addItem(d->m_aboutSeparator);
+    mainLayout->addItem(d->m_aboutLabel);
 
     setLayout(mainLayout);
 

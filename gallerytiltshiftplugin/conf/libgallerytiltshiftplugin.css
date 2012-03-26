@@ -61,3 +61,25 @@ GalleryTiltShiftWidget MSliderStyle#CommonSliderInverted {
     minimum-size: -1 -1;
     preferred-size: -1 -1;
 }
+
+GalleryTiltShiftWidget MSeparatorStyle#CommonHeaderDividerInverted {
+    background-image: meegotouch-groupheader-inverted-background 0px 0px 0px 0px;
+    span:           0.2mm;
+    margin-top:     $PADDING_DOUBLE;
+    margin-bottom:  0;
+    margin-left:    $INDENT_DEFAULT;
+    margin-right:   $INDENT_DEFAULT;
+}
+
+GalleryTiltShiftWidget MLabelStyle#TiltShiftAboutNotice {
+    font: $FONT_FAMILY normal 16;
+    margin-top: $PADDING_LARGE;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: $PADDING_LARGE;
+    color: $COLOR_BUTTON_DISABLED_FOREGROUND;
+    highlight-color: $COLOR_ACCENT10;
+}
