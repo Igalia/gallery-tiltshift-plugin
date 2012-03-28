@@ -1,4 +1,5 @@
 gallerytiltshiftplugin/*.so usr/lib/gallery
 gallerytiltshiftplugin/conf/*.css usr/share/themes/base/meegotouch/libgallerytiltshiftplugin/style
-gallerytiltshiftplugin/images/*.png /usr/share/themes/blanco/meegotouch/icons
+gallerytiltshiftplugin/data/icon-m-image-edit-tilt-shift.png usr/share/themes/base/meegotouch/icons
+gallerytiltshiftplugin/data/icon-l-tilt-shift.png usr/share/icons/hicolor/64x64/apps/
 quilltiltshiftplugin/*.so   usr/lib/qt4/plugins/quillimagefilters

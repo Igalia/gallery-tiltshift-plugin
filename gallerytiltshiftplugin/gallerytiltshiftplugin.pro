@@ -35,7 +35,10 @@ include($$[QT_INSTALL_DATA]/mkspecs/features/meegotouch_defines.prf)
 meegotouch.files = conf/libgallerytiltshiftplugin.css
 meegotouch.path = $${M_THEME_DIR}/base/meegotouch/libgallerytiltshiftplugin/style
 
-icon.files = images/icon-m-image-edit-tilt-shift.png
-icon.path = /usr/share/themes/blanco/meegotouch/icons
+editicon.files = data/icon-m-image-edit-tilt-shift.png
+editicon.path = /usr/share/themes/base/meegotouch/icons
 
-INSTALLS += target meegotouch
+icon.files = data/icon-l-tilt-shift.png
+icon.files = /usr/share/icons/hicolor/64x64/apps/
+
+INSTALLS += target meegotouch editicon icon
