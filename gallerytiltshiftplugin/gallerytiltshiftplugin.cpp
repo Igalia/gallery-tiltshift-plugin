@@ -25,14 +25,18 @@
 #include "gallerytiltshiftwidget.h"
 
 #include <galleryedituiprovider.h>
+
 #include <MApplication>
+#include <MMessageBox>
 #include <MBanner>
+#include <MLabel>
 #include <MLibrary>
 #include <MSceneWindow>
 #include <QuillImageFilter>
 #include <QDesktopServices>
-#include <QUrl>
+#include <QGraphicsLinearLayout>
 #include <QGraphicsSceneMouseEvent>
+#include <QUrl>
 
 static const int PORTRAIT_HEIGHT        = 224;
 static const int LANDSCAPE_HEIGHT       = 170;
@@ -174,9 +178,28 @@ void GalleryTiltShiftPlugin::activate()
 
 void GalleryTiltShiftPlugin::onAboutLinkActivated(const QString &link)
 {
+    Q_UNUSED(link)
     if (link.toLower().startsWith("http")) {
         QDesktopServices::openUrl(QUrl(link));
+    } else {
+        MMessageBox* message = aboutMessage();
+        message->appear(MSceneWindow::DestroyWhenDone);
     }
+}
+
+MMessageBox* GalleryTiltShiftPlugin::aboutMessage()
+{
+    MMessageBox* aboutMessage = new MMessageBox("About Tilt Shift plugin",
+                                                "Copyright (c) 2012 Igalia S.L."
+                                                "<br />"
+                                                "<a href=\"mailto:spena@igalia.com\">spena@igalia.com</a> | "
+                                                "<a href=\"http://www.igalia.com\">www.igalia.com</a>"
+                                                "<br />"
+                                                "This library is free software; you can redistribute it and/or "
+                                                "modify it under the terms of the GNU Lesser General Public License "
+                                                "as published by the Free Software Foundation; version 2.1 of "
+                                                "the License, or (at your option) any later version.");
+    return aboutMessage;
 }
 
 Q_EXPORT_PLUGIN2(gallerytiltshiftplugin, GalleryTiltShiftPlugin)

@@ -25,6 +25,7 @@
 
 #include <galleryeditplugin.h>
 
+class MMessageBox;
 class GalleryTiltShiftPluginPrivate;
 
 class GalleryTiltShiftPlugin: public GalleryEditPlugin
@@ -64,6 +65,9 @@ public:
 protected:
     //! \reimp
     QGraphicsWidget* createToolBarWidget(QGraphicsItem* parent = 0);
+
+    //! Creates the about message
+    MMessageBox* aboutMessage();
 
 public Q_SLOTS:
     //! \reimp
