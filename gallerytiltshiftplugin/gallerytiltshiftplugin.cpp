@@ -129,6 +129,8 @@ bool GalleryTiltShiftPlugin::receiveMouseEvent(QGraphicsSceneMouseEvent* event)
             d->m_focusPosition.setY(event->pos().toPoint().y());
             performEditOperation();
             return true;
+        } else {
+            showInfoBanner("Plugin disabled for this image size");
         }
     }
     return false;
@@ -176,6 +178,14 @@ void GalleryTiltShiftPlugin::activate()
         if (d->m_validImage) {
             showInfoBanner("Tap on an area to keep it focused");
         } else {
+            showMessageBox("Tilt Shift plugin limitations",
+                           "Gallery Tilt Shift plugin is currently limited to small images (512x512)<br />"
+                           "For a given image:"
+                           "<ol>"
+                           "<li>Scale it or crop it</li>"
+                           "<li>Save it with a different name</li>"
+                           "<li>Apply the filter to the new one</li>"
+                           "</ol>");
             GalleryTiltShiftWidget* widget = static_cast<GalleryTiltShiftWidget*>(toolBarWidget());
             widget->setEnabled(d->m_validImage);
         }
