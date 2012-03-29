@@ -174,14 +174,7 @@ void GalleryTiltShiftPlugin::activate()
         d->m_validImage = editUiProvider()->fullImageSize().height() <= 512 &&
                 editUiProvider()->fullImageSize().width() <= 512;
         if (d->m_validImage) {
-            MBanner *infoBanner = new MBanner();
-            infoBanner->setTitle("Tap on an area to keep it focused");
-            infoBanner->setStyleName("InformationBanner");
-            infoBanner->appear(MApplication::activeWindow(), MSceneWindow::DestroyWhenDone);
-            connect(this, SIGNAL(deactivated()),
-                    infoBanner, SLOT(disappear()));
-            // This banner should last no more than 2 seconds
-            infoBanner->model()->setDisappearTimeout(2000);
+            showInfoBanner("Tap on an area to keep it focused");
         } else {
             GalleryTiltShiftWidget* widget = static_cast<GalleryTiltShiftWidget*>(toolBarWidget());
             widget->setEnabled(d->m_validImage);
@@ -217,6 +210,20 @@ MMessageBox* GalleryTiltShiftPlugin::showMessageBox(const QString& title, const 
     messageBox->appear(MSceneWindow::DestroyWhenDone);
 
     return messageBox;
+}
+
+MBanner* GalleryTiltShiftPlugin::showInfoBanner(const QString& title) const
+{
+    MBanner *infoBanner = new MBanner;
+    infoBanner->setTitle(title);
+    infoBanner->setStyleName("InformationBanner");
+    infoBanner->model()->setDisappearTimeout(2000);
+    connect(this, SIGNAL(deactivated()),
+            infoBanner, SLOT(disappear()));
+
+    infoBanner->appear(MApplication::activeWindow(), MSceneWindow::DestroyWhenDone);
+
+    return infoBanner;
 }
 
 Q_EXPORT_PLUGIN2(gallerytiltshiftplugin, GalleryTiltShiftPlugin)

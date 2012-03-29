@@ -26,6 +26,7 @@
 #include <galleryeditplugin.h>
 
 class MMessageBox;
+class MBanner;
 class GalleryTiltShiftPluginPrivate;
 
 class GalleryTiltShiftPlugin: public GalleryEditPlugin
@@ -83,6 +84,10 @@ public Q_SLOTS:
     //! \return The message box
     MMessageBox* showMessageBox(const QString& title, const QString& text) const;
 
+    //! Shows an info banner with a given text
+    //! \param title Text to be shown in the info banner
+    //! \return The info banner
+    MBanner* showInfoBanner(const QString& text) const;
 private:
     Q_DISABLE_COPY(GalleryTiltShiftPlugin)
     Q_DECLARE_PRIVATE(GalleryTiltShiftPlugin)
