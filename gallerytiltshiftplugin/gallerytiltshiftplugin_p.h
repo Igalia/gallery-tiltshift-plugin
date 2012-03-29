@@ -36,6 +36,9 @@ public:
 
     //! Focus position
     QPoint m_focusPosition;
+
+    //! Tells whether the Tilt Shift can be applied to the image or not
+    bool m_validImage;
 };
 
 #endif // GALLERYTILTSHIFTPLUGIN_P_H

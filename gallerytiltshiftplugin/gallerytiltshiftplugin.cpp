@@ -46,7 +46,8 @@ static const int INFO_BANNER_TIMEOUT    = 2000;
 M_LIBRARY
 
 GalleryTiltShiftPluginPrivate::GalleryTiltShiftPluginPrivate() :
-    m_focusPosition()
+    m_focusPosition(),
+    m_validImage(true)
 {
 }
 
@@ -123,10 +124,12 @@ bool GalleryTiltShiftPlugin::receiveMouseEvent(QGraphicsSceneMouseEvent* event)
             event->button() == Qt::LeftButton &&
             (event->scenePos() - event->buttonDownScenePos(Qt::LeftButton)).manhattanLength() < TAP_DISTANCE) {
         Q_D(GalleryTiltShiftPlugin);
-        d->m_focusPosition.setX(event->pos().toPoint().x());
-        d->m_focusPosition.setY(event->pos().toPoint().y());
-        performEditOperation();
-        return true;
+        if (d->m_validImage) {
+            d->m_focusPosition.setX(event->pos().toPoint().x());
+            d->m_focusPosition.setY(event->pos().toPoint().y());
+            performEditOperation();
+            return true;
+        }
     }
     return false;
 }
@@ -166,14 +169,24 @@ void GalleryTiltShiftPlugin::performEditOperation()
 
 void GalleryTiltShiftPlugin::activate()
 {
-    MBanner *infoBanner = new MBanner();
-    infoBanner->setTitle("Tap on an area to keep it focused");
-    infoBanner->setStyleName("InformationBanner");
-    infoBanner->appear(MApplication::activeWindow(), MSceneWindow::DestroyWhenDone);
-    connect(this, SIGNAL(deactivated()),
-            infoBanner, SLOT(disappear()));
-    // This banner should last no more than 2 seconds
-    infoBanner->model()->setDisappearTimeout(2000);
+    if (editUiProvider()) {
+        Q_D(GalleryTiltShiftPlugin);
+        d->m_validImage = editUiProvider()->fullImageSize().height() <= 512 &&
+                editUiProvider()->fullImageSize().width() <= 512;
+        if (d->m_validImage) {
+            MBanner *infoBanner = new MBanner();
+            infoBanner->setTitle("Tap on an area to keep it focused");
+            infoBanner->setStyleName("InformationBanner");
+            infoBanner->appear(MApplication::activeWindow(), MSceneWindow::DestroyWhenDone);
+            connect(this, SIGNAL(deactivated()),
+                    infoBanner, SLOT(disappear()));
+            // This banner should last no more than 2 seconds
+            infoBanner->model()->setDisappearTimeout(2000);
+        } else {
+            GalleryTiltShiftWidget* widget = static_cast<GalleryTiltShiftWidget*>(toolBarWidget());
+            widget->setEnabled(d->m_validImage);
+        }
+    }
 }
 
 void GalleryTiltShiftPlugin::onAboutLinkActivated(const QString &link)
