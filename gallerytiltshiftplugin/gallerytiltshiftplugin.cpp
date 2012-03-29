@@ -195,24 +195,28 @@ void GalleryTiltShiftPlugin::onAboutLinkActivated(const QString &link)
     if (link.toLower().startsWith("http")) {
         QDesktopServices::openUrl(QUrl(link));
     } else {
-        MMessageBox* message = aboutMessage();
-        message->appear(MSceneWindow::DestroyWhenDone);
+        showMessageBox("About Tilt Shift plugin",
+                       "Copyright (c) 2012 Igalia S.L."
+                       "<br />"
+                       "<a href=\"mailto:spena@igalia.com\">spena@igalia.com</a> | "
+                       "<a href=\"http://www.igalia.com\">www.igalia.com</a>"
+                       "<br />"
+                       "This library is free software; you can redistribute it and/or "
+                       "modify it under the terms of the GNU Lesser General Public License "
+                       "as published by the Free Software Foundation; version 2.1 of "
+                       "the License, or (at your option) any later version.");
     }
 }
 
-MMessageBox* GalleryTiltShiftPlugin::aboutMessage()
+MMessageBox* GalleryTiltShiftPlugin::showMessageBox(const QString& title, const QString& text) const
 {
-    MMessageBox* aboutMessage = new MMessageBox("About Tilt Shift plugin",
-                                                "Copyright (c) 2012 Igalia S.L."
-                                                "<br />"
-                                                "<a href=\"mailto:spena@igalia.com\">spena@igalia.com</a> | "
-                                                "<a href=\"http://www.igalia.com\">www.igalia.com</a>"
-                                                "<br />"
-                                                "This library is free software; you can redistribute it and/or "
-                                                "modify it under the terms of the GNU Lesser General Public License "
-                                                "as published by the Free Software Foundation; version 2.1 of "
-                                                "the License, or (at your option) any later version.");
-    return aboutMessage;
+    MMessageBox* messageBox = new MMessageBox(title,
+                                              text);
+    connect(this, SIGNAL(deactivated()),
+            messageBox, SLOT(disappear()));
+    messageBox->appear(MSceneWindow::DestroyWhenDone);
+
+    return messageBox;
 }
 
 Q_EXPORT_PLUGIN2(gallerytiltshiftplugin, GalleryTiltShiftPlugin)

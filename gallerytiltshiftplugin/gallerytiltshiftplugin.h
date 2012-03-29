@@ -66,9 +66,6 @@ protected:
     //! \reimp
     QGraphicsWidget* createToolBarWidget(QGraphicsItem* parent = 0);
 
-    //! Creates the about message
-    MMessageBox* aboutMessage();
-
 public Q_SLOTS:
     //! \reimp
     void performEditOperation();
@@ -79,6 +76,12 @@ public Q_SLOTS:
     //! Invoked when a link in the about notice has been activated
     //! \param link The activated link
     void onAboutLinkActivated(const QString& link);
+
+    //! Shows a message box with a given title and text
+    //! \param title Text to be shown as a title in the message box
+    //! \param text Text to be shown as the body in the message box
+    //! \return The message box
+    MMessageBox* showMessageBox(const QString& title, const QString& text) const;
 
 private:
     Q_DISABLE_COPY(GalleryTiltShiftPlugin)
