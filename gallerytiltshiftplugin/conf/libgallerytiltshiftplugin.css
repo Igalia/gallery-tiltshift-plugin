@@ -69,7 +69,7 @@ GalleryTiltShiftWidget MSeparatorStyle#CommonHeaderDividerInverted {
     margin-right:   $INDENT_DEFAULT;
 }
 
-GalleryTiltShiftWidget MLabelStyle#TiltShiftAboutDisclaimer {
+GalleryTiltShiftAboutWidget MLabelStyle#TiltShiftAboutDisclaimer {
     font: $FONT_FAMILY normal 14;
     margin-top: $PADDING_LARGE;
     margin-bottom: 0;
@@ -82,7 +82,7 @@ GalleryTiltShiftWidget MLabelStyle#TiltShiftAboutDisclaimer {
     highlight-color: $COLOR_ACCENT10;
 }
 
-GalleryTiltShiftWidget MLabelStyle#TiltShiftAboutLink {
+GalleryTiltShiftAboutWidget MLabelStyle#TiltShiftAboutLink {
     font: $FONT_FAMILY normal 14;
     margin-top: $PADDING_LARGE;
     margin-bottom: 0;

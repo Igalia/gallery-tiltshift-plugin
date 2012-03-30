@@ -22,6 +22,7 @@
 
 #include "gallerytiltshiftwidget.h"
 #include "gallerytiltshiftwidget_p.h"
+#include "gallerytiltshiftaboutwidget.h"
 
 #include <MApplication>
 #include <MButton>
@@ -46,9 +47,7 @@ GalleryTiltShiftWidgetPrivate::GalleryTiltShiftWidgetPrivate() :
     m_landscapePolicy(new MLinearLayoutPolicy(m_orientationLayout, Qt::Horizontal)),
     m_portraitPolicy(new MLinearLayoutPolicy(m_orientationLayout, Qt::Vertical)),
     m_aboutSeparator(new MSeparator),
-    m_disclaimerLabel(new MLabel),
-    m_aboutLabel(new MLabel),
-    m_aboutLayout(new QGraphicsLinearLayout(Qt::Horizontal))
+    m_aboutWidget(new GalleryTiltShiftAboutWidget)
 {
     m_orientationLayout->setContentsMargins(0, 0, 0, 0);
     m_orientationLayout->setAnimation(0);
@@ -65,12 +64,6 @@ GalleryTiltShiftWidgetPrivate::GalleryTiltShiftWidgetPrivate() :
     m_orientationLayout->setPortraitPolicy(m_portraitPolicy);
 
     m_aboutSeparator->setStyleName("CommonHeaderDividerInverted");
-
-    m_disclaimerLabel->setStyleName("TiltShiftAboutDisclaimer");
-    m_disclaimerLabel->setText("Tilt Shift plugin has been proudly brought to you by <a href=\"http://www.igalia.com\">Igalia</a>");
-
-    m_aboutLabel->setStyleName("TiltShiftAboutLink");
-    m_aboutLabel->setText("<a href=\"about\">About</a>");
 }
 
 GalleryTiltShiftWidgetPrivate::~GalleryTiltShiftWidgetPrivate()
@@ -82,9 +75,7 @@ GalleryTiltShiftWidgetPrivate::~GalleryTiltShiftWidgetPrivate()
     delete m_portraitPolicy;
     delete m_landscapePolicy;
     delete m_aboutSeparator;
-    delete m_disclaimerLabel;
-    delete m_aboutLabel;
-    delete m_aboutLayout;
+    delete m_aboutWidget;
 }
 
 MButton* GalleryTiltShiftWidgetPrivate::addButton(const QString& label,
@@ -140,11 +131,8 @@ GalleryTiltShiftWidget::GalleryTiltShiftWidget(QGraphicsItem* parent) :
             SLOT(onApplyHorizontallyButtonClicked()));
     connect(d->m_applyVerticallyButton, SIGNAL(clicked()),
             SLOT(onApplyVerticallyButtonClicked()));
-
-    connect(d->m_disclaimerLabel, SIGNAL(linkActivated(QString)),
-            this, SIGNAL(aboutLinkActivated(QString)));
-    connect(d->m_aboutLabel, SIGNAL(linkActivated(QString)),
-            this, SIGNAL(aboutLinkActivated(QString)));
+    connect(d->m_aboutWidget, SIGNAL(linkActivated(QString)),
+            SIGNAL(aboutLinkActivated(QString)));
 
     QGraphicsLinearLayout* mainLayout = new QGraphicsLinearLayout(Qt::Vertical);
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -154,10 +142,7 @@ GalleryTiltShiftWidget::GalleryTiltShiftWidget(QGraphicsItem* parent) :
     mainLayout->addItem(d->m_orientationLayout);
     mainLayout->setAlignment(d->m_orientationLayout, Qt::AlignCenter);
     mainLayout->addItem(d->m_aboutSeparator);
-    d->m_aboutLayout->addItem(d->m_disclaimerLabel);
-    d->m_aboutLayout->addStretch();
-    d->m_aboutLayout->addItem(d->m_aboutLabel);
-    mainLayout->addItem(d->m_aboutLayout);
+    mainLayout->addItem(d->m_aboutWidget);
 
     setLayout(mainLayout);
 

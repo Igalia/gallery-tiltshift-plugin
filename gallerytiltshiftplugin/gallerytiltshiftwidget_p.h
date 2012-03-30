@@ -30,7 +30,7 @@ class MLayout;
 class MLinearLayoutPolicy;
 class MSeparator;
 class MSlider;
-class QGraphicsLinearLayout;
+class GalleryTiltShiftAboutWidget;
 
 class GalleryTiltShiftWidgetPrivate
 {
@@ -75,14 +75,8 @@ public:
     //! Separator dividing the widget from the about claim
     MSeparator* m_aboutSeparator;
 
-    //! Label containing the about disclaimer
-    MLabel* m_disclaimerLabel;
-
-    //! Label containing the about link
-    MLabel* m_aboutLabel;
-
-    //! Layout for the about notes
-    QGraphicsLinearLayout* m_aboutLayout;
+    //! Widget containing the about disclaimer
+    GalleryTiltShiftAboutWidget* m_aboutWidget;
 };
 
 #endif // GALLERYTILTSHIFTWIDGET_P_H

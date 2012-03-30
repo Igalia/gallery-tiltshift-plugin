@@ -21,10 +21,12 @@ contains( debug, yes ) {
 HEADERS += gallerytiltshiftplugin.h \
            gallerytiltshiftwidget.h \
            gallerytiltshiftwidget_p.h \
-           gallerytiltshiftplugin_p.h
+           gallerytiltshiftplugin_p.h \
+           gallerytiltshiftaboutwidget.h
 
 SOURCES += gallerytiltshiftplugin.cpp \
-           gallerytiltshiftwidget.cpp
+           gallerytiltshiftwidget.cpp \
+           gallerytiltshiftaboutwidget.cpp
 
 OTHER_FILES += \
            conf/libgallerytiltshiftplugin.css
