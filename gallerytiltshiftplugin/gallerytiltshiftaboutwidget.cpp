@@ -1,4 +1,5 @@
 #include "gallerytiltshiftaboutwidget.h"
+
 #include <MLabel>
 #include <MWidgetCreator>
 #include <QGraphicsLinearLayout>
@@ -11,7 +12,8 @@ GalleryTiltShiftAboutWidget::GalleryTiltShiftAboutWidget() :
     m_disclaimerLabel(new MLabel)
 {
     m_disclaimerLabel->setStyleName("TiltShiftAboutDisclaimer");
-    m_disclaimerLabel->setText("Tilt Shift plugin has been proudly brought to you by <a href=\"http://www.igalia.com\">Igalia</a>");
+    m_disclaimerLabel->setText("Tilt Shift plugin has been proudly brought to you"
+                               "by <a href=\"http://www.igalia.com\">Igalia</a>");
 
     m_aboutLabel->setStyleName("TiltShiftAboutLink");
     m_aboutLabel->setText("<a href=\"about\">About</a>");
@@ -37,7 +39,6 @@ GalleryTiltShiftAboutWidget::~GalleryTiltShiftAboutWidget()
     delete m_disclaimerLabel;
 }
 
-#include <QDebug>
 void GalleryTiltShiftAboutWidget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
