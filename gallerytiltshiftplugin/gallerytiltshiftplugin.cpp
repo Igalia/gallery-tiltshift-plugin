@@ -37,6 +37,7 @@
 #include <QGraphicsLinearLayout>
 #include <QGraphicsSceneMouseEvent>
 #include <QUrl>
+#include <QTextOption>
 
 static const int PORTRAIT_HEIGHT        = 224;
 static const int LANDSCAPE_HEIGHT       = 170;
@@ -80,6 +81,10 @@ int GalleryTiltShiftPlugin::menuIndex() const
 
 QString GalleryTiltShiftPlugin::iconID() const
 {
+    // XXX: Gallery plugins load their icons by ID, so they must be placed in a
+    // location watched by the MThemeDaemon. However, it seems that the MThemeDaemon
+    // only re-scans its content when booting. As a consequence, the red icon
+    // corresponding to a missing resource will appear until the device is rebooted.
     return QString("icon-m-image-edit-tilt-shift");
 }
 
@@ -179,7 +184,8 @@ void GalleryTiltShiftPlugin::activate()
             showInfoBanner("Tap on an area to keep it focused");
         } else {
             showMessageBox("Tilt Shift plugin limitations",
-                           "Gallery Tilt Shift plugin is currently limited to small images (512x512)<br />"
+                           "Gallery Tilt Shift plugin is currently limited to "
+                           "small images (512x512)<br />"
                            "For a given image:"
                            "<ol>"
                            "<li>Scale it or crop it</li>"
@@ -195,15 +201,15 @@ void GalleryTiltShiftPlugin::activate()
 void GalleryTiltShiftPlugin::onAboutLinkActivated(const QString &link)
 {
     Q_UNUSED(link)
-    if (link.toLower().startsWith("http")) {
+    if (link.toLower().startsWith("http") || link.toLower().startsWith("mailto")) {
         QDesktopServices::openUrl(QUrl(link));
     } else {
         showMessageBox("About Tilt Shift plugin",
                        "Copyright (c) 2012 Igalia S.L."
-                       "<br />"
+                       "<br /><br />"
                        "<a href=\"mailto:spena@igalia.com\">spena@igalia.com</a> | "
                        "<a href=\"http://www.igalia.com\">www.igalia.com</a>"
-                       "<br />"
+                       "<br /><br />"
                        "This library is free software; you can redistribute it and/or "
                        "modify it under the terms of the GNU Lesser General Public License "
                        "as published by the Free Software Foundation; version 2.1 of "
@@ -213,10 +219,20 @@ void GalleryTiltShiftPlugin::onAboutLinkActivated(const QString &link)
 
 MMessageBox* GalleryTiltShiftPlugin::showMessageBox(const QString& title, const QString& text) const
 {
-    MMessageBox* messageBox = new MMessageBox(title,
-                                              text);
+    MMessageBox* messageBox = new MMessageBox(title, "");
+    MLabel* innerLabel = new MLabel(messageBox);
+    innerLabel->setWordWrap(true);
+    innerLabel->setWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
+    innerLabel->setStyleName("CommonQueryText");
+    innerLabel->setText(text);
+    innerLabel->setAlignment(Qt::AlignHCenter);
+    messageBox->setCentralWidget(innerLabel);
+
+    connect(innerLabel, SIGNAL(linkActivated(QString)),
+            this, SLOT(onAboutLinkActivated(QString)));
     connect(this, SIGNAL(deactivated()),
             messageBox, SLOT(disappear()));
+
     messageBox->appear(MSceneWindow::DestroyWhenDone);
 
     return messageBox;
