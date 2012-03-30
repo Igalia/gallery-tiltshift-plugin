@@ -9,5 +9,7 @@ TODO
  * The Gaussian Blur algorithm is known to be slow: it will need some
    performance enhancements, besides the use of scanLines to access pixels
  * The Gaussian Blur filter makes artifacts on the borders of the tiles
- * If the Gaussian Blur filter cannot be improved, maybe it should be
-   restricted to images smaller than a given size
+
+KNOWN ISSUES:
+ * Input images are restricted to 512x512 in order to avoid the artifacts on
+   the borders of the tiles.
