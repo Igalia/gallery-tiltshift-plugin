@@ -2,102 +2,98 @@
 <!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
 <!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
-  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/script.js"></script>
+    <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/script.js"></script>
 
-  <title>Tilt Shift Plugin</title>
-  <meta name="description" content="Tilt Shift plugin for Gallery">
+    <title>Tilt Shift Plugin</title>
 
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Tilt Shift plugin for Gallery">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  </head>
 
-</head>
+  <body>
+    <div class="wrapper">
+      <header>
+	<h1 class="title">Tilt Shift Plugin</h1>
+      </header>
+      <div id="container">
+	<p class="tagline">Tilt Shift plugin for Gallery</p>
+	<div id="main" role="main">
+          <div class="download-bar">
+            <div class="inner">
+              <a href="https://github.com/Igalia/gallery-tiltshift-plugin/tarball/master" class="download-button tar"><span>Download</span></a>
+              <a href="https://github.com/Igalia/gallery-tiltshift-plugin/zipball/master" class="download-button zip"><span>Download</span></a>
+              <a href="https://github.com/Igalia/gallery-tiltshift-plugin" class="code">fork Tilt Shift Plugin on GitHub</a>
+            </div>
+            <span class="blc"></span><span class="trc"></span>
+          </div>
+          <article class="markdown-body">
+            <h2>What is it?</h2>
 
-<body>
+	    <p><em>Gallery Tilt Shift Plugin</em> is a filter for the Gallery application of the N9
+	      (and N950) MeeGo devices which makes a picture look like a miniature.</p>
 
-  <div class="wrapper">
-    <header>
-      <h1 class="title">Tilt Shift Plugin</h1>
-    </header>
-    <div id="container">
-      <p class="tagline">Tilt Shift plugin for Gallery</p>
-      <div id="main" role="main">
-        <div class="download-bar">
-        <div class="inner">
-          <a href="https://github.com/Igalia/gallery-tiltshift-plugin/tarball/master" class="download-button tar"><span>Download</span></a>
-          <a href="https://github.com/Igalia/gallery-tiltshift-plugin/zipball/master" class="download-button zip"><span>Download</span></a>
-          <a href="https://github.com/Igalia/gallery-tiltshift-plugin" class="code">fork Tilt Shift Plugin on GitHub</a>
-        </div>
-        <span class="blc"></span><span class="trc"></span>
-        </div>
-        <article class="markdown-body">
-          <h2>What is it?</h2>
+	    <p>From the <a href="http://en.wikipedia.org/wiki/Tilt-shift_photography" title="Tilt-shift photography">Wikipedia</a>,</p>
 
-<p><em>Gallery Tilt Shift Plugin</em> is a filter for the Gallery application of the N9
-(and N950) MeeGo devices which makes a picture look like a miniature.</p>
+	    <blockquote>
+	      <p><em>Tilt-shift photography</em> refers to the use of camera movements on
+		small- and medium-format cameras, and sometimes specifically refers
+		to the use of tilt for selective focus, often for simulating a miniature
+		scene. Sometimes the term is used when the shallow depth of field is simulated
+		with digital post-processing; the name may derive from the tilt-shift lens
+		normally required when the effect is produced optically.</p>
+	    </blockquote>
 
-<p>From the <a href="http://en.wikipedia.org/wiki/Tilt-shift_photography" title="Tilt-shift photography">Wikipedia</a>,</p>
+	    <p>Making an photograph of a life-size location or object look like photograph
+	      of a miniature scale model is known as <a href="http://en.wikipedia.org/wiki/Miniature_faking" title="Miniature Faking">Miniature faking</a>. There are several
+	      ways to achieve that result, and <em>fake Tilt Shift</em> is one of them.</p>
 
-<blockquote>
-<p><em>Tilt-shift photography</em> refers to the use of camera movements on
-small- and medium-format cameras, and sometimes specifically refers
-to the use of tilt for selective focus, often for simulating a miniature
-scene. Sometimes the term is used when the shallow depth of field is simulated
-with digital post-processing; the name may derive from the tilt-shift lens
-normally required when the effect is produced optically.</p>
-</blockquote>
+	    <h2>Applying Tilt Shift to a picture:</h2>
 
-<p>Making an photograph of a life-size location or object look like photograph
-of a miniature scale model is known as <a href="http://en.wikipedia.org/wiki/Miniature_faking" title="Miniature Faking">Miniature faking</a>. There are several
-ways to achieve that result, and <em>fake Tilt Shift</em> is one of them.</p>
+	    <ul>
+	      <li>From the application grid, open Gallery</li>
+	      <li>Pick a picture with a size equal or smaller than 512x512px (see Known Issues below)</li>
+	      <li>Tap on the object menu and select <em>Edit</em></li>
+	      <li>Tap on <em>Tilt Shift</em></li>
+	      <li>Select the orientation of the focus (horizontal / vertical). In that
+		orientation, the focused area will take all available space</li>
+	      <li>Select the radius of the focus: that will rule the size of the focused
+		area in the other orientation</li>
+	      <li>Tap on the screen to center the focus around the given point</li>
+	    </ul>
 
-<h2>Applying Tilt Shift to a picture:</h2>
+	    <h2>Known Issues:</h2>
 
-<ul>
-<li>From the application grid, open Gallery</li>
-<li>Pick a picture with a size equal or smaller than 512x512px (see Known Issues below)</li>
-<li>Tap on the object menu and select <em>Edit</em>
-</li>
-<li>Tap on <em>Tilt Shift</em>
-</li>
-<li>Select the orientation of the focus (horizontal / vertical). In that
-orientation, the focused area will take all available space</li>
-<li>Select the radius of the focus: that will rule the size of the focused
-area in the other orientation</li>
-<li>Tap on the screen to center the focus around the given point</li>
-</ul><h2>Known Issues:</h2>
+	    <ul>
+	      <li>Only <em>PR &gt;= 1.2</em> is currently supported.</li>
+	      <li><a href="https://github.com/Igalia/gallery-tiltshift-plugin/issues/1">Issue #1</a>: You will need to reboot to make the icon for the plugin appear properly</li>
+	      <li><a href="https://github.com/Igalia/gallery-tiltshift-plugin/issues/2">Issue #2</a>: Due to limitations in the current implementation of the filter, operating on images larger than 512x512 is very slow and causes artifacts.</li>
+	    </ul>
 
-<ul>
-<li>Only <em>PR &gt;= 1.2</em> is currently supported.</li>
-<li>
-<a href="https://github.com/Igalia/gallery-tiltshift-plugin/issues/1">Issue #1</a>: You will need to reboot to make the icon for the plugin appear properly</li>
-<li>
-<a href="https://github.com/Igalia/gallery-tiltshift-plugin/issues/2">Issue #2</a>: Due to limitations in the current implementation of the filter, operating on
-images larger than 512x512 is very slow and causes artifacts.</li>
-</ul><p>Please, feel free to report any other issues you might find in our <a href="https://github.com/Igalia/gallery-tiltshift-plugin/issues">bug tracker</a></p>
-        </article>
+	    <p>Please, feel free to report any other issues you might find in our <a href="https://github.com/Igalia/gallery-tiltshift-plugin/issues">bug tracker</a></p>
+          </article>
+	</div>
       </div>
+
+      <footer>
+	<div class="owner">
+	  <p><a href="https://github.com/Igalia" class="avatar"><img src="https://secure.gravatar.com/avatar/a5d3519b3f9a7d0f23d92dc5d7dc368b?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png" width="48" height="48"/></a> <a href="https://github.com/Igalia">Igalia</a> maintains <a href="https://github.com/Igalia/gallery-tiltshift-plugin">Tilt Shift Plugin</a></p>
+	</div>
+	<div class="creds">
+          <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
+	</div>
+      </footer>
     </div>
-    <footer>
-      <div class="owner">
-      <p><a href="https://github.com/Igalia" class="avatar"><img src="https://secure.gravatar.com/avatar/a5d3519b3f9a7d0f23d92dc5d7dc368b?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png" width="48" height="48"/></a> <a href="https://github.com/Igalia">Igalia</a> maintains <a href="https://github.com/Igalia/gallery-tiltshift-plugin">Tilt Shift Plugin</a></p>
-      </div>
-      <div class="creds">
-        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
-      </div>
-    </footer>
-  </div>
-  <div class="current-section">
-    <a href="#top">Scroll to top</a>
-    <a href="https://github.com/Igalia/gallery-tiltshift-plugin/tarball/master" class="tar">tar</a><a href="https://github.com/Igalia/gallery-tiltshift-plugin/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
-    <p class="name"></p>
-  </div>
-
-  
-</body>
+    <div class="current-section">
+      <a href="#top">Scroll to top</a>
+      <a href="https://github.com/Igalia/gallery-tiltshift-plugin/tarball/master" class="tar">tar</a><a href="https://github.com/Igalia/gallery-tiltshift-plugin/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+      <p class="name"></p>
+    </div>
+  </body>
 </html>
