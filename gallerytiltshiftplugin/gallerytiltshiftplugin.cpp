@@ -204,7 +204,7 @@ void GalleryTiltShiftPlugin::onAboutLinkActivated(const QString &link)
     if (link.toLower().startsWith("http") || link.toLower().startsWith("mailto")) {
         QDesktopServices::openUrl(QUrl(link));
     } else {
-        showMessageBox("About Tilt Shift plugin",
+        showMessageBox("Tilt Shift plugin - 0.1.0",
                        "Copyright (c) 2012 Igalia S.L."
                        "<br /><br />"
                        "<a href=\"mailto:spena@igalia.com\">spena@igalia.com</a> | "
