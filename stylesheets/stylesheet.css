@@ -320,17 +320,17 @@ footer .creds small {
 }
 
 footer .owner .avatar {
-  background-color: #666;
+  background-color: #fff;
   display: block;
-  margin: -19px 10px 0 0;
-  width: 60px;
+  margin: -15px 10px;
+  width: 140px;
   float: left;
+  border: 1px solid #2a2a2a;
 }
 
 footer .owner img {
   display: block;
-  border: 1px solid #2a2a2a;
-  margin: 5px;
+  margin: 2px -3px 2px 3px;
 }
 
 footer .owner p {
