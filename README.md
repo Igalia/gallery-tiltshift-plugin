@@ -33,6 +33,7 @@ Applying Tilt Shift to a picture:
 
 Known Issues:
 -------------
+ * Only *PR >= 1.2* is currently supported.
  * You will need to reboot to make the icon for the plugin appear properly
  * Due to limitations in the current implementation of the filter, operating on
    images larger than 512x512 is very slow and causes artifacts.

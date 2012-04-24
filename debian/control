@@ -3,14 +3,17 @@ Section: graphics
 Priority: extra
 Maintainer: Simon Pena <spena@igalia.com>
 Build-Depends: debhelper (>= 7.0.50),
-               libgallerycore-dev (>= 1.110519.2),
+               libgallerycore-dev (>= 1.120112.1+pr1.2),
                libquillimagefilter-dev (>= 1.110523.0)
 Standards-Version: 3.9.1
 
 Package: gallery-plugin-tiltshift
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends},
+         libgallerycore (>= 1.120112.1+pr1.2)
 Description: Gallery plugin that applies Tilt Shift effect
+ .
+ This plugin requires PR1.2 in order to work
 XB-Maemo-Flags: visible
 XB-Maemo-Display-Name: Gallery Tilt Shift plugin
 XB-Maemo-Icon-26:
