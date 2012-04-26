@@ -242,7 +242,7 @@ MBanner* GalleryTiltShiftPlugin::showInfoBanner(const QString& title) const
 {
     MBanner *infoBanner = new MBanner;
     infoBanner->setTitle(title);
-    infoBanner->setStyleName("InformationBanner");
+    infoBanner->setStyleName(MBannerType::InformationBanner);
     infoBanner->model()->setDisappearTimeout(2000);
     connect(this, SIGNAL(deactivated()),
             infoBanner, SLOT(disappear()));
