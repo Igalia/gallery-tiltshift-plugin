@@ -41,6 +41,6 @@ editicon.files = data/icon-m-image-edit-tilt-shift.png
 editicon.path = /usr/share/themes/base/meegotouch/icons
 
 icon.files = data/icon-l-tilt-shift.png
-icon.files = /usr/share/icons/hicolor/64x64/apps/
+icon.path = /usr/share/icons/hicolor/64x64/apps/
 
 INSTALLS += target meegotouch editicon icon
