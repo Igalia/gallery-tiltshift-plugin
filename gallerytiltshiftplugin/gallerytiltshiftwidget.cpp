@@ -74,6 +74,7 @@ GalleryTiltShiftWidgetPrivate::~GalleryTiltShiftWidgetPrivate()
     delete m_slider;
     delete m_portraitPolicy;
     delete m_landscapePolicy;
+    delete m_orientationLayout;
     delete m_aboutSeparator;
     delete m_aboutWidget;
 }
