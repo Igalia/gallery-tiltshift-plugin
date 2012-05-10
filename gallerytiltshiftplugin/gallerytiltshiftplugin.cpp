@@ -200,7 +200,6 @@ void GalleryTiltShiftPlugin::activate()
 
 void GalleryTiltShiftPlugin::onAboutLinkActivated(const QString &link)
 {
-    Q_UNUSED(link)
     if (link.toLower().startsWith("http") || link.toLower().startsWith("mailto")) {
         QDesktopServices::openUrl(QUrl(link));
     } else {
