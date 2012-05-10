@@ -18,6 +18,9 @@ contains( debug, yes ) {
     DEFINES += QT_NO_DEBUG_OUTPUT
 }
 
+PACKAGEVERSION = $$system(head -n 1 ../debian/changelog | grep -o [0-9].[0-9].[0-9])
+DEFINES += "PACKAGEVERSION=\\\"$$PACKAGEVERSION\\\""
+
 HEADERS += gallerytiltshiftplugin.h \
            gallerytiltshiftwidget.h \
            gallerytiltshiftwidget_p.h \
