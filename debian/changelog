@@ -1,3 +1,12 @@
+gallery-plugin-tiltshift (0.1.2) unstable; urgency=low
+
+  * Package version automatically integrated in About dialog.
+  * Code cleaned.
+  * Hardcoded binary dependencies to be able to install in the
+    compatible N950 device.
+
+ -- Andres Gomez <agomez@igalia.com>  Thu, 02 Aug 2012 11:33:40 +0200
+
 gallery-plugin-tiltshift (0.1.1) unstable; urgency=low
 
   * Fixed: #3 InfoBanner uses defined constant, not hardcode one
