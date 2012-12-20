@@ -19,6 +19,12 @@ Making an photograph of a life-size location or object look like photograph
 of a miniature scale model is known as [Miniature faking] [2]. There are several
 ways to achieve that result, and *fake Tilt Shift* is one of them.
 
+Installing:
+-----------
+
+The easiet way of installing Gallery Tilt Shift Plugin is through its
+entry in the [Nokia Store](http://store.ovi.com/content/274188).
+
 Applying Tilt Shift to a picture:
 ---------------------------------
  * From the application grid, open Gallery
@@ -30,6 +36,13 @@ Applying Tilt Shift to a picture:
  * Select the radius of the focus: that will rule the size of the focused
    area in the other orientation
  * Tap on the screen to center the focus around the given point
+
+Usage explanation:
+------------------
+
+For a brief usage explanation visit Gallery Tilt Shift Plugin's
+[page](http://igalia.github.com/gallery-tiltshift-plugin/) or this
+[video explanation](http://youtu.be/fkTn1E1T9B8).
 
 Known Issues:
 -------------
